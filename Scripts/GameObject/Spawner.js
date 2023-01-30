@@ -1,32 +1,42 @@
-const TIME_TO_SPAWN = 2
+
+const UPDATE_COUNTER = 10
 class Spawner {
     constructor() {
         this.spawnDensity = 200
-        this.minimunGap = 100
-        this.maximumGap = 200
-        this.updateCooldown = TIME_TO_SPAWN
+        this.minimunGap = 1100
+        this.maximumGap = 1250
+        this.TIME_TO_SPAWN_PIPE = 2
+        this.updateCooldown = 0
+        this.reducetime = 0
 
     }
     trySpawning() {
-        if(this.updateCooldown > 0) {
-            this.updateCooldown -= GAME_ENGINE.clockTick
+        if(this.updateCooldown < this.TIME_TO_SPAWN_PIPE) {
+            this.updateCooldown += GAME_ENGINE.clockTick
         } else {
-            //vertical_Bottom[300 : -98]
-            //vertical_Bottom[300 : -98]
-            var randomBottom = Math.random() * (900 - 500) + 500;
-            var randomGap = Math.random() * (this.maximumGap - this.minimunGap) - this.minimunGap;
-            console.log("Random bottom: " + (randomBottom))
-            console.log("Random GAP: " + (randomBottom - randomGap))
-            var topPipe = new Pipe(GAME_ENGINE.camera.player.posX + 500, -1*randomBottom, true)//{ -500 : -900}
-            var bottomPipe = new Pipe(GAME_ENGINE.camera.player.posX + 500, randomBottom - randomGap-900) //{-100 : 320}
+            var randomBottom = Math.random() * (320 - 100) + 100;
+
+            var randomGap = Math.abs(Math.random() * (this.maximumGap - this.minimunGap) + this.minimunGap);
+            var bottomPipeY =  randomBottom
+            var topPipe = new Pipe(GAME_ENGINE.camera.player.posX + 500, bottomPipeY - randomGap, true)//{ -500 : -900}
+            var bottomPipe = new Pipe(GAME_ENGINE.camera.player.posX + 500,  bottomPipeY) //{-100 : 320}
             GAME_ENGINE.addEntity(topPipe)
             GAME_ENGINE.addEntity(bottomPipe)
-            this.updateCooldown = TIME_TO_SPAWN
+
+            if(this.reducetime < UPDATE_COUNTER) {
+                this.reducetime += GAME_ENGINE.clockTick
+            } else {
+                this.TIME_TO_SPAWN_PIPE = this.TIME_TO_SPAWN_PIPE* 0.9
+                this.reducetime = 0
+            }
+
+            this.updateCooldown = 0
         }
     }
 
     update() {
         this.trySpawning()
+
     }
     draw() {
 

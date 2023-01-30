@@ -45,12 +45,12 @@ class GameEngine {
             y: e.clientY - this.ctx.canvas.getBoundingClientRect().top
         });
 
-        this.ctx.canvas.addEventListener("mousemove", e => {
-            if (this.options.debugging) {
-                console.log("MOUSE_MOVE", getXandY(e));
-            }
-            this.mouse = getXandY(e);
-        });
+        // this.ctx.canvas.addEventListener("mousemove", e => {
+        //     if (this.options.debugging) {
+        //         console.log("MOUSE_MOVE", getXandY(e));
+        //     }
+        //     this.mouse = getXandY(e);
+        // });
 
         // this.ctx.canvas.addEventListener("click", e => {
         //     if (this.options.debugging) {
@@ -80,57 +80,34 @@ class GameEngine {
 
         //Player input block; all player inputs go here...
         //Keys
-        this.ctx.canvas.addEventListener("keydown", (e) => {
-            switch (e.code) {
-                case "KeyA":
-                    this.key_left = true;
-                    break;
-                case "KeyS":
-                    this.key_down = true;
-                    break;
-                case "KeyD":
-                    this.key_right = true;
-                    break;
-                case "KeyW":
-                    this.key_up = true;
-                    break;
-                case "ShiftLeft":
-                    this.key_run = true;
-                    break;
-                case "KeyR":
-                    this.key_reload = true;
-                    break;
-            }
-        }, false);
         this.ctx.canvas.addEventListener("keyup", (e) => {
             switch (e.code) {
-                case "KeyA":
-                    this.key_left = false;
-                    break;
-                case "KeyS":
-                    this.key_down = false;
-                    break;
-                case "KeyD":
-                    this.key_right = false;
-                    break;
-                case "KeyW":
-                    this.key_up = false;
-                    break;
-                case "ShiftLeft":
-                    this.key_run = false;
-                    break;
                 case "KeyR":
                     this.key_reload = false;
                     break;
+                case "Space":
+                    this.space = false;
+                    break;
             }
         }, false);
+        this.ctx.canvas.addEventListener("keydown", (e) => {
+            console.log(e)
+            switch (e.code) {
+                case "KeyR":
+                    this.key_reload = true;
+                    break;
+                case "Space":
+                    this.space = true;
+                    break;
+            }
+        }, false);
+
 
         //Mouse
         this.ctx.canvas.addEventListener("mousedown", (e) => {
             if(e.button == 0) {
                 this.left_click = true;
-            } else if (e.button == 2) {
-                this.right_click = true;
+                this.single_click = true;
             }
         });
         this.ctx.canvas.addEventListener("mouseup", (e) => {
@@ -148,6 +125,7 @@ class GameEngine {
     }
 
 
+
     addEntity(entity) {
         this.entities.push(entity);
     };
@@ -163,6 +141,7 @@ class GameEngine {
     };
 
     update() {
+
         let entitiesCount = this.entities.length;
 
         for (let i = 0; i < entitiesCount; i++) {

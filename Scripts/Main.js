@@ -9,7 +9,7 @@ ASSET_MANAGER.queueDownload("Assets/Images/Items/Bullets/Bullet.png");
 ASSET_MANAGER.queueDownload("Assets/Background/Day/background-day.png");
 ASSET_MANAGER.queueDownload("Assets/Birds/Yellow Bird/Yellow_Bird_Sprite.png");
 ASSET_MANAGER.queueDownload("Assets/Obsticals/Green Pipe/pipe-green.png");
-ASSET_MANAGER.queueDownload("Assets/Obsticals/Green Pipe/pipe-green -flipped.jpg");
+ASSET_MANAGER.queueDownload("Assets/Obsticals/Green Pipe/pipe-green -flipped.png");
 ASSET_MANAGER.queueDownload("Assets/Images/Characters/Zombies/Animations/Walking/ZombieWalking.png");
 ASSET_MANAGER.queueDownload("Assets/Images/Characters/Zombies/Animations/Attacking/AttackingSpriteSheet.png")
 ASSET_MANAGER.queueDownload("Assets/Background/Base/base.png")
